@@ -18,13 +18,26 @@ export class Playground {
     this.paragraph = "";
   }
 
-  setupListeners(socket: Socket) {}
+  setupListeners(socket: Socket) {
+    socket.on("start-game", async () => {
+      if (this.playgroundStatus === "in-progress") {
+        return socket.emit(
+          "error",
+          "Playground has already started, please wait for it to end."
+        );
+      }
+
+      if (this.playgroundHost === socket.id) {
+        return socket.emit("error", "You don't have access to start the game.");
+      }
+    });
+  }
 
   joinPlayers(id: string, name: string, socket: Socket) {
     if (this.playgroundStatus === "in-progress") {
       return socket.emit(
         "error",
-        "Game is running, please wait for it to end."
+        "Playground has already started, please wait for it to end."
       );
     }
 
