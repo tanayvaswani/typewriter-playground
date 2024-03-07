@@ -23,7 +23,13 @@ export function setupListerner(io: Server) {
         if (!playground) {
           return socket.emit("error", "Playground doesn't exists");
         }
+
+        playground.joinPlayers(socket.id, name, socket);
       } else {
+        const playground = new Playground(roomId, io, socket.id);
+        playgrounds.set(roomId, playground);
+
+        playground.joinPlayers(socket.id, name, socket);
       }
     });
   });
