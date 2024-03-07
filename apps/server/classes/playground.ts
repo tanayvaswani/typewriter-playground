@@ -30,6 +30,14 @@ export class Playground {
       if (this.playgroundHost === socket.id) {
         return socket.emit("error", "You don't have access to start the game.");
       }
+
+      for (const player of this.players) {
+        player.score = 0;
+      }
+
+      this.io.to(this.gameId).emit("players", this.players);
+
+      this.playgroundStatus = "in-progress";
     });
   }
 
