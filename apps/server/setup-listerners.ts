@@ -1,5 +1,12 @@
 import { Server } from "socket.io";
 
+import { Playground } from "./classes/playground";
+
+// Map to keep the track of active
+// playgrounds, in a key-value pair
+// <string, Playground> = roomId & Playground Objects' instance
+const playgrounds = new Map<string, Playground>();
+
 export function setupListerner(io: Server) {
   io.on("connection", (socket) => {
     console.log(`New Connection - ${socket.id}`);
