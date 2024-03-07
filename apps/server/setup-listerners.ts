@@ -12,6 +12,8 @@ export function setupListerner(io: Server) {
       if (!name) {
         return socket.emit("error", "Please enter a valid name.");
       }
+
+      socket.join(roomId);
     });
   });
 }
