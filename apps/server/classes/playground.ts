@@ -53,6 +53,28 @@ export class Playground {
         this.io.to(this.gameId).emit("players", this.players);
       }, 60000);
     });
+
+    socket.on("player-type", (typed: string) => {
+      if (this.playgroundStatus === "in-progress") {
+        return socket.emit(
+          "error",
+          "Playground has already started, please wait for it to end."
+        );
+      }
+
+      const splittedParagraph = this.paragraph.split(" ");
+      const splittedTypedParagraph = typed.split(" ");
+
+      let score = 0;
+
+      for (let i = 0; i < splittedTypedParagraph.length; i++) {
+        if (splittedTypedParagraph[i] === splittedParagraph[i]) {
+          score++;
+        } else {
+          break;
+        }
+      }
+    });
   }
 
   joinPlayers(id: string, name: string, socket: Socket) {
