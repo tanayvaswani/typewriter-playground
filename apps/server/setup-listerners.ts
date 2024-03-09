@@ -5,7 +5,7 @@ import { Playground } from "./classes/playground";
 // Using Map to keep the track of active
 // playgrounds, in a key-value pair
 // <string, Playground> = roomId & Playground Objects' instance
-const playgrounds = new Map<string, Playground>();
+export const playgrounds = new Map<string, Playground>();
 
 export function setupListerner(io: Server) {
   io.on("connection", (socket) => {

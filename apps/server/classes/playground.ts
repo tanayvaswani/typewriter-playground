@@ -1,6 +1,7 @@
 import { Server, Socket } from "socket.io";
 
 import { generateParagraph } from "../utils/generate-paragraph";
+import { playgrounds } from "../setup-listerners";
 
 export class Playground {
   playgroundStatus: "not-started" | "in-progress" | "finished";
@@ -86,6 +87,15 @@ export class Playground {
 
     socket.on("leave", () => {
       if (socket.id == this.playgroundHost) {
+        this.players = this.players.filter((player) => player.id !== socket.id);
+
+        if (this.players.length !== 0) {
+          this.playgroundHost = this.players[0].id;
+          this.io.to(this.gameId).emit("new-host", this.playgroundHost);
+          this.io.to(this.gameId).emit("player-left", socket.id);
+        } else {
+          playgrounds.delete(this.gameId);
+        }
       }
 
       socket.leave(this.gameId);
