@@ -74,6 +74,23 @@ export class Playground {
           break;
         }
       }
+
+      const player = this.players.find((player) => player.id === socket.id);
+
+      if (player) {
+        player.score = score;
+      }
+
+      this.io.to(this.gameId).emit("player-score", { id: socket.id, score });
+    });
+
+    socket.on("leave", () => {
+      if (socket.id == this.playgroundHost) {
+      }
+
+      socket.leave(this.gameId);
+      this.players = this.players.filter((player) => player.id !== socket.id);
+      this.io.to(this.gameId).emit("player-left", socket.id);
     });
   }
 
