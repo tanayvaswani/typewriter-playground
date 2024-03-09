@@ -1,5 +1,7 @@
 import { Server, Socket } from "socket.io";
 
+import { generateParagraph } from "../utils/generate-paragraph";
+
 export class Playground {
   playgroundStatus: "not-started" | "in-progress" | "finished";
   gameId: string;
@@ -38,6 +40,18 @@ export class Playground {
       this.io.to(this.gameId).emit("players", this.players);
 
       this.playgroundStatus = "in-progress";
+
+      const paragraph = await generateParagraph();
+
+      this.paragraph = paragraph;
+
+      this.io.to(this.gameId).emit("game-started", paragraph);
+
+      setTimeout(() => {
+        this.playgroundStatus = "finished";
+        this.io.to(this.gameId).emit("game-finished");
+        this.io.to(this.gameId).emit("players", this.players);
+      }, 60000);
     });
   }
 
