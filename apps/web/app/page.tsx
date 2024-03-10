@@ -22,7 +22,7 @@ export default function Home() {
 
     if (!inviteCode) return toast.error("Invite code is required!");
 
-    router.push(`/game/${inviteCode}`);
+    router.push(`/playground/${inviteCode}`);
   };
 
   const createGame = () => {
