@@ -14,12 +14,13 @@ export default function Home() {
 
   const joinGame = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const form = e.currentTarget;
     const formData = new FormData(form);
 
     const inviteCode = formData.get("inviteCode") as string;
 
-    if (!inviteCode) return toast.error("Invite code is required");
+    if (!inviteCode) return toast.error("Invite code is required!");
 
     router.push(`/game/${inviteCode}`);
   };
