@@ -23,7 +23,7 @@ const PlaygroundIdPage = ({
         <Card className="w-full flex flex-col p-10">
           <h2 className="font-bold text-4xl md:text-5xl">Enter your name</h2>
           <p className="text-gray-400 mt-5 text-lg">
-            Before you join the game, we require you to provide a
+            Before you join the playground, we require you to provide a
             nickname/username. This nickname/username will be shown in the
             leaderboard and in the participants section.
           </p>

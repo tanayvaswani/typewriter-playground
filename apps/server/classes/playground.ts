@@ -5,14 +5,14 @@ import { playgrounds } from "../setup-listerners";
 
 export class Playground {
   playgroundStatus: "not-started" | "in-progress" | "finished";
-  gameId: string;
+  playrgoundId: string;
   players: { id: string; score: number; name: string }[];
   io: Server;
   playgroundHost: string;
   paragraph: string;
 
   constructor(id: string, io: Server, host: string) {
-    this.gameId = id;
+    this.playrgoundId = id;
     this.io = io;
     this.playgroundHost = host;
 
@@ -38,7 +38,7 @@ export class Playground {
         player.score = 0;
       }
 
-      this.io.to(this.gameId).emit("players", this.players);
+      this.io.to(this.playrgoundId).emit("players", this.players);
 
       this.playgroundStatus = "in-progress";
 
@@ -46,12 +46,12 @@ export class Playground {
 
       this.paragraph = paragraph;
 
-      this.io.to(this.gameId).emit("game-started", paragraph);
+      this.io.to(this.playrgoundId).emit("game-started", paragraph);
 
       setTimeout(() => {
         this.playgroundStatus = "finished";
-        this.io.to(this.gameId).emit("game-finished");
-        this.io.to(this.gameId).emit("players", this.players);
+        this.io.to(this.playrgoundId).emit("game-finished");
+        this.io.to(this.playrgoundId).emit("players", this.players);
       }, 60000);
     });
 
@@ -82,7 +82,9 @@ export class Playground {
         player.score = score;
       }
 
-      this.io.to(this.gameId).emit("player-score", { id: socket.id, score });
+      this.io
+        .to(this.playrgoundId)
+        .emit("player-score", { id: socket.id, score });
     });
 
     socket.on("leave", () => {
@@ -91,16 +93,16 @@ export class Playground {
 
         if (this.players.length !== 0) {
           this.playgroundHost = this.players[0].id;
-          this.io.to(this.gameId).emit("new-host", this.playgroundHost);
-          this.io.to(this.gameId).emit("player-left", socket.id);
+          this.io.to(this.playrgoundId).emit("new-host", this.playgroundHost);
+          this.io.to(this.playrgoundId).emit("player-left", socket.id);
         } else {
-          playgrounds.delete(this.gameId);
+          playgrounds.delete(this.playrgoundId);
         }
       }
 
-      socket.leave(this.gameId);
+      socket.leave(this.playrgoundId);
       this.players = this.players.filter((player) => player.id !== socket.id);
-      this.io.to(this.gameId).emit("player-left", socket.id);
+      this.io.to(this.playrgoundId).emit("player-left", socket.id);
     });
   }
 
@@ -114,7 +116,7 @@ export class Playground {
 
     this.players.push({ id, name, score: 0 });
 
-    this.io.to(this.gameId).emit("player-joined", {
+    this.io.to(this.playrgoundId).emit("player-joined", {
       id,
       name,
       score: 0,
