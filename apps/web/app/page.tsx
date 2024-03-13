@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from "uuid";
 export default function Home() {
   const router = useRouter();
 
-  const joinGame = (e: FormEvent<HTMLFormElement>) => {
+  const joinPlayground = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const form = e.currentTarget;
@@ -51,7 +51,7 @@ export default function Home() {
 
           <div>
             <Button className="mt-5 w-full" onClick={createGame}>
-              Create Game
+              Create Playrgound
             </Button>
           </div>
         </div>
@@ -66,9 +66,9 @@ export default function Home() {
           </div>
 
           <div className="mt-5">
-            <form onSubmit={joinGame}>
+            <form onSubmit={joinPlayground}>
               <Input type="text" placeholder="Invite code" name="inviteCode" />
-              <Button className="mt-3 w-full">Join Game</Button>
+              <Button className="mt-3 w-full">Join Playground</Button>
             </form>
           </div>
         </div>

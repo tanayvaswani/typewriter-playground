@@ -37,7 +37,7 @@ const PlaygroundIdPage = ({
             />
 
             <Button type="submit" className="text-xl w-full mt-5 px-5 py-7">
-              Join Game
+              Join Playground
             </Button>
           </form>
         </Card>
