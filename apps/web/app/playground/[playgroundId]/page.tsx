@@ -1,6 +1,9 @@
+import { redirect } from "next/navigation";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
+import Playground from "@/components/playground";
 
 const PlaygroundIdPage = ({
   searchParams,
@@ -15,6 +18,14 @@ const PlaygroundIdPage = ({
 }) => {
   const appendName = async (formData: FormData) => {
     "use server";
+
+    const name = formData.get("name") as string;
+
+    if (!name) {
+      return;
+    }
+
+    redirect(`/playground/${params.playgroundId}/?name=${name}`);
   };
 
   if (!searchParams.name) {
@@ -44,6 +55,8 @@ const PlaygroundIdPage = ({
       </main>
     );
   }
+
+  return <Playground />;
 };
 
 export default PlaygroundIdPage;
