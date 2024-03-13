@@ -1,6 +1,8 @@
 "use client";
 
-const Playground = ({playgroundId, }) => {
+import type { PlaygroundProps } from "@/app/types/types";
+
+const Playground = ({ playgroundId, name }: PlaygroundProps) => {
   return <div>Playground Component</div>;
 };
 
