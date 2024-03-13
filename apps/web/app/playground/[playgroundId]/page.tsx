@@ -13,7 +13,7 @@ const PlaygroundIdPage = ({
     playgroundId: string;
   };
 }) => {
-  const appendName = (formData: FormData) => {
+  const appendName = async (formData: FormData) => {
     "use server";
   };
 
@@ -44,8 +44,6 @@ const PlaygroundIdPage = ({
       </main>
     );
   }
-
-  
 };
 
 export default PlaygroundIdPage;

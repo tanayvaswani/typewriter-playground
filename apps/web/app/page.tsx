@@ -27,7 +27,7 @@ export default function Home() {
 
   const createGame = () => {
     const inviteCode = uuidv4();
-    router.push(`/game/${inviteCode}`);
+    router.push(`/playground/${inviteCode}`);
   };
 
   return (
